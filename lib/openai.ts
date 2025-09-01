@@ -142,4 +142,28 @@ export class OpenAIService {
       return "What amazing thing will you create today?";
     }
   }
+
+  // Transcribe audio using OpenAI Whisper
+  static async transcribeAudio(audioBlob: Blob): Promise<string> {
+    try {
+      const formData = new FormData();
+      formData.append('audio', audioBlob, 'recording.webm');
+
+      const response = await fetch('/api/openai/transcribe', {
+        method: 'POST',
+        body: formData,
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || `Transcription failed: ${response.status}`);
+      }
+
+      const data = await response.json();
+      return data.transcription;
+    } catch (error) {
+      console.error("Error transcribing audio:", error);
+      throw error;
+    }
+  }
 }

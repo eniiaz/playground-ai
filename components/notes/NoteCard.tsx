@@ -10,6 +10,7 @@ interface Note {
   createdAt: Date;
   updatedAt: Date;
   userId: string;
+  audioUrl?: string;
 }
 
 interface NoteCardProps {
@@ -93,9 +94,16 @@ export function NoteCard({ note, onUpdate, onDelete }: NoteCardProps) {
         ) : (
           <>
             <div className="flex justify-between items-start mb-4">
-              <h3 className="font-semibold text-lg text-gray-800 line-clamp-2">
-                {note.title}
-              </h3>
+              <div className="flex items-center space-x-2">
+                <h3 className="font-semibold text-lg text-gray-800 line-clamp-2">
+                  {note.title}
+                </h3>
+                {note.audioUrl && (
+                  <span className="text-purple-600" title="Voice Note">
+                    🎤
+                  </span>
+                )}
+              </div>
               <div className="flex space-x-1">
                 <button
                   onClick={() => setIsEditing(true)}
@@ -119,6 +127,21 @@ export function NoteCard({ note, onUpdate, onDelete }: NoteCardProps) {
             <p className="text-gray-700 mb-4 line-clamp-3">
               {note.content}
             </p>
+
+            {/* Audio Player for Voice Notes */}
+            {note.audioUrl && (
+              <div className="mb-4 p-3 bg-purple-50 rounded-lg border border-purple-200">
+                <div className="flex items-center space-x-2 mb-2">
+                  <span className="text-purple-600">🎤</span>
+                  <span className="text-sm font-medium text-purple-800">Voice Recording</span>
+                </div>
+                <audio controls className="w-full">
+                  <source src={note.audioUrl} type="audio/webm" />
+                  <source src={note.audioUrl} type="audio/mp4" />
+                  Your browser does not support the audio element.
+                </audio>
+              </div>
+            )}
             
             {note.tags.length > 0 && (
               <div className="flex flex-wrap gap-2 mb-4">

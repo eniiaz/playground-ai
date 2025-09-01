@@ -6,6 +6,7 @@ import { FirestoreService, queryHelpers } from "@/lib/firestore";
 import { UserSyncService } from "@/lib/user-sync";
 import { NoteCard } from "./NoteCard";
 import { CreateNoteModal } from "./CreateNoteModal";
+import { VoiceRecordingModal } from "./VoiceRecordingModal";
 
 interface Note {
   id: string;
@@ -15,6 +16,7 @@ interface Note {
   createdAt: Date;
   updatedAt: Date;
   userId: string;
+  audioUrl?: string;
 }
 
 export function NotesContainer() {
@@ -22,6 +24,7 @@ export function NotesContainer() {
   const [notes, setNotes] = useState<Note[]>([]);
   const [loading, setLoading] = useState(true);
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
+  const [isVoiceModalOpen, setIsVoiceModalOpen] = useState(false);
 
   // Fetch notes
   const fetchNotes = useCallback(async () => {
@@ -44,7 +47,7 @@ export function NotesContainer() {
     fetchNotes();
   }, [fetchNotes]);
 
-  const handleCreateNote = async (noteData: { title: string; content: string; tags: string[] }) => {
+  const handleCreateNote = async (noteData: { title: string; content: string; tags: string[]; audioUrl?: string }) => {
     if (!user?.id) return;
 
     try {
@@ -57,6 +60,7 @@ export function NotesContainer() {
       
       setNotes(prev => [newNote as Note, ...prev]);
       setIsCreateModalOpen(false);
+      setIsVoiceModalOpen(false);
       
       // Update user stats
       await UserSyncService.updateUserStats(user.id, "notes", 1);
@@ -104,14 +108,21 @@ export function NotesContainer() {
 
   return (
     <div>
-      {/* Create Note Button */}
-      <div className="mb-6">
+      {/* Create Note Buttons */}
+      <div className="mb-6 flex space-x-3">
         <button
           onClick={() => setIsCreateModalOpen(true)}
           className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium flex items-center space-x-2"
         >
           <span>+</span>
           <span>New Note</span>
+        </button>
+        <button
+          onClick={() => setIsVoiceModalOpen(true)}
+          className="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg font-medium flex items-center space-x-2"
+        >
+          <span>🎤</span>
+          <span>Voice Note</span>
         </button>
       </div>
 
@@ -123,12 +134,21 @@ export function NotesContainer() {
           </div>
           <h3 className="text-lg font-medium text-gray-800 mb-2">No notes yet</h3>
           <p className="text-gray-600 mb-4">Create your first note to get started</p>
-          <button
-            onClick={() => setIsCreateModalOpen(true)}
-            className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium"
-          >
-            Create Note
-          </button>
+          <div className="flex space-x-3 justify-center">
+            <button
+              onClick={() => setIsCreateModalOpen(true)}
+              className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium"
+            >
+              Create Note
+            </button>
+            <button
+              onClick={() => setIsVoiceModalOpen(true)}
+              className="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg font-medium flex items-center space-x-2"
+            >
+              <span>🎤</span>
+              <span>Voice Note</span>
+            </button>
+          </div>
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -147,6 +167,13 @@ export function NotesContainer() {
       <CreateNoteModal
         isOpen={isCreateModalOpen}
         onClose={() => setIsCreateModalOpen(false)}
+        onCreate={handleCreateNote}
+      />
+
+      {/* Voice Recording Modal */}
+      <VoiceRecordingModal
+        isOpen={isVoiceModalOpen}
+        onClose={() => setIsVoiceModalOpen(false)}
         onCreate={handleCreateNote}
       />
     </div>
