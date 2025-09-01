@@ -54,7 +54,7 @@ export default async function Home() {
       <SignedIn>
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-gray-900 mb-2">
-            Welcome back, {user?.firstName || 'there'}! 👋
+            Welcome, {user?.firstName || 'there'}! 👋
           </h1>
           <p className="text-gray-600">Ready to explore?</p>
         </div>
