@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useUser } from "@clerk/nextjs";
 import { FirestoreService, queryHelpers } from "@/lib/firestore";
 import { UserSyncService } from "@/lib/user-sync";
@@ -29,7 +29,7 @@ export function IdeasContainer() {
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
   const [isGeneratorModalOpen, setIsGeneratorModalOpen] = useState(false);
 
-  const fetchIdeas = async () => {
+  const fetchIdeas = useCallback(async () => {
     if (!user?.id) return;
     
     try {
@@ -43,11 +43,11 @@ export function IdeasContainer() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [user?.id]);
 
   useEffect(() => {
     fetchIdeas();
-  }, [user?.id]);
+  }, [user?.id, fetchIdeas]);
 
   const handleCreateIdea = async (ideaData: Omit<BusinessIdea, "id" | "createdAt" | "updatedAt" | "userId">) => {
     if (!user?.id) return;

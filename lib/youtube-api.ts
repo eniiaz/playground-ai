@@ -36,6 +36,41 @@ export interface YouTubeVideoDetails extends YouTubeVideo {
   tags: string[];
 }
 
+interface YouTubeAPIVideoItem {
+  id: string | { videoId: string };
+  snippet: {
+    title: string;
+    description: string;
+    channelTitle: string;
+    channelId: string;
+    publishedAt: string;
+    thumbnails: {
+      default?: { url: string };
+      medium?: { url: string };
+      high?: { url: string };
+    };
+    categoryId?: string;
+    tags?: string[];
+  };
+  contentDetails?: {
+    duration: string;
+  };
+  statistics?: {
+    viewCount: string;
+    likeCount: string;
+    commentCount: string;
+  };
+}
+
+interface YouTubeAPIResponse {
+  items: YouTubeAPIVideoItem[];
+  nextPageToken?: string;
+  pageInfo: {
+    totalResults: number;
+    resultsPerPage: number;
+  };
+}
+
 export class YouTubeAPIService {
   // Search for videos
   static async searchVideos(
@@ -61,10 +96,10 @@ export class YouTubeAPIService {
         throw new Error(`YouTube API error: ${response.status}`);
       }
 
-      const data = await response.json();
+      const data: YouTubeAPIResponse = await response.json();
 
-      const videos: YouTubeVideo[] = data.items?.map((item: any) => ({
-        id: item.id.videoId,
+      const videos: YouTubeVideo[] = data.items?.map((item: YouTubeAPIVideoItem) => ({
+        id: typeof item.id === 'string' ? item.id : item.id.videoId,
         title: item.snippet.title,
         description: item.snippet.description,
         channelTitle: item.snippet.channelTitle,
@@ -156,10 +191,10 @@ export class YouTubeAPIService {
         throw new Error(`YouTube API error: ${response.status}`);
       }
 
-      const data = await response.json();
+      const data: YouTubeAPIResponse = await response.json();
 
-      return data.items?.map((item: any) => ({
-        id: item.id,
+      return data.items?.map((item: YouTubeAPIVideoItem) => ({
+        id: typeof item.id === 'string' ? item.id : item.id.videoId,
         title: item.snippet.title,
         description: item.snippet.description,
         channelTitle: item.snippet.channelTitle,
@@ -197,10 +232,10 @@ export class YouTubeAPIService {
         throw new Error(`YouTube API error: ${response.status}`);
       }
 
-      const data = await response.json();
+      const data: YouTubeAPIResponse = await response.json();
 
-      return data.items?.map((item: any) => ({
-        id: item.id,
+      return data.items?.map((item: YouTubeAPIVideoItem) => ({
+        id: typeof item.id === 'string' ? item.id : item.id.videoId,
         title: item.snippet.title,
         description: item.snippet.description,
         channelTitle: item.snippet.channelTitle,

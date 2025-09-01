@@ -116,7 +116,7 @@ export function MotivationalQuote() {
 
         <div className="space-y-4">
           <blockquote className="text-white text-xl md:text-2xl font-medium leading-relaxed">
-            "{quote.quote}"
+            &ldquo;{quote.quote}&rdquo;
           </blockquote>
           
           {quote.author && (

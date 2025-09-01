@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { FactsModal } from "./FactsModal";
 
 interface LibraryResource {
@@ -86,7 +87,7 @@ export function ResourceCard({ resource, onUpdate, onDelete }: ResourceCardProps
       return date.toLocaleDateString();
     }
     if (date && typeof date === 'object' && 'toDate' in date) {
-      return (date as any).toDate().toLocaleDateString();
+      return (date as { toDate: () => Date }).toDate().toLocaleDateString();
     }
     return new Date(date).toLocaleDateString();
   };
@@ -213,11 +214,12 @@ export function ResourceCard({ resource, onUpdate, onDelete }: ResourceCardProps
               
               {/* Image Preview for Image Type */}
               {resource.type === "image" && (
-                <div className="mb-4">
-                  <img
+                <div className="mb-4 relative h-48">
+                  <Image
                     src={resource.url}
                     alt={resource.title}
-                    className="w-full h-48 object-cover rounded-lg border border-gray-200"
+                    fill
+                    className="object-cover rounded-lg border border-gray-200"
                   />
                 </div>
               )}

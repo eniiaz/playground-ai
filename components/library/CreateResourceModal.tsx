@@ -23,7 +23,7 @@ export function CreateResourceModal({ isOpen, onClose, onCreate }: CreateResourc
     title: "",
     url: "",
     description: "",
-    type: "article" as const,
+    type: "article" as LibraryResource["type"],
     category: "",
     tags: "",
     isFavorite: false,
@@ -52,7 +52,7 @@ export function CreateResourceModal({ isOpen, onClose, onCreate }: CreateResourc
       title: "",
       url: "",
       description: "",
-      type: "article",
+      type: "article" as LibraryResource["type"],
       category: "",
       tags: "",
       isFavorite: false,
@@ -157,7 +157,7 @@ export function CreateResourceModal({ isOpen, onClose, onCreate }: CreateResourc
                 <select
                   id="type"
                   value={formData.type}
-                  onChange={(e) => setFormData(prev => ({ ...prev, type: e.target.value as any }))}
+                  onChange={(e) => setFormData(prev => ({ ...prev, type: e.target.value as LibraryResource["type"] }))}
                   className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500"
                 >
                   <option value="article">📄 Article</option>

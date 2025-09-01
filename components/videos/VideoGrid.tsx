@@ -1,6 +1,6 @@
 "use client";
 
-import { YouTubeVideo, YouTubeAPIService } from "@/lib/youtube-api";
+import { YouTubeVideo } from "@/lib/youtube-api";
 import { VideoCard } from "./VideoCard";
 
 interface VideoGridProps {

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { OpenAIService, GeneratedFact } from "@/lib/openai";
 
 interface FactsModalProps {
@@ -66,11 +67,14 @@ export function FactsModal({ isOpen, onClose, imageUrl, imageTitle }: FactsModal
           <div className="space-y-6">
             {/* Image Preview */}
             <div className="text-center">
-              <img
-                src={imageUrl}
-                alt={imageTitle}
-                className="w-full max-w-md h-48 object-cover rounded-lg border border-gray-200 mx-auto"
-              />
+              <div className="relative w-full max-w-md h-48 mx-auto">
+                <Image
+                  src={imageUrl}
+                  alt={imageTitle}
+                  fill
+                  className="object-cover rounded-lg border border-gray-200"
+                />
+              </div>
               <p className="text-sm text-gray-600 mt-2">{imageTitle}</p>
             </div>
 

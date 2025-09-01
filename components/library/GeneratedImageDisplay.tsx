@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { GeneratedImage } from "@/lib/openai";
 
 interface GeneratedImageDisplayProps {
@@ -31,7 +32,7 @@ export function GeneratedImageDisplay({
       title: title.trim() || "AI Generated Image",
       url: image.imageUrl,
       description: description.trim() || image.prompt,
-      type: "image" as any,
+      type: "image" as const,
       category: category.trim() || "AI Generated",
       tags: tags.split(",").map(tag => tag.trim()).filter(Boolean),
     });
@@ -56,11 +57,12 @@ export function GeneratedImageDisplay({
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             {/* Image Display */}
             <div>
-              <div className="bg-gray-100 rounded-lg overflow-hidden">
-                <img
+              <div className="bg-gray-100 rounded-lg overflow-hidden relative aspect-square">
+                <Image
                   src={image.imageUrl}
                   alt={image.prompt}
-                  className="w-full h-auto object-cover"
+                  fill
+                  className="object-cover"
                 />
               </div>
               <div className="mt-3 text-sm text-gray-600">

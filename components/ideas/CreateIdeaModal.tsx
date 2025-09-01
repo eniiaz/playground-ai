@@ -25,7 +25,7 @@ export function CreateIdeaModal({ isOpen, onClose, onCreate }: CreateIdeaModalPr
     category: "",
     targetMarket: "",
     feasibilityScore: 5,
-    status: "idea" as const,
+    status: "idea" as BusinessIdea["status"],
     tags: "",
   });
 
@@ -54,7 +54,7 @@ export function CreateIdeaModal({ isOpen, onClose, onCreate }: CreateIdeaModalPr
       category: "",
       targetMarket: "",
       feasibilityScore: 5,
-      status: "idea",
+      status: "idea" as BusinessIdea["status"],
       tags: "",
     });
     onClose();
@@ -161,7 +161,7 @@ export function CreateIdeaModal({ isOpen, onClose, onCreate }: CreateIdeaModalPr
                 <select
                   id="status"
                   value={formData.status}
-                  onChange={(e) => setFormData(prev => ({ ...prev, status: e.target.value as any }))}
+                  onChange={(e) => setFormData(prev => ({ ...prev, status: e.target.value as BusinessIdea["status"] }))}
                   className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
                 >
                   <option value="idea">💭 Idea</option>

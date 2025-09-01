@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { YouTubeVideo, YouTubeAPIService, YouTubeVideoDetails } from "@/lib/youtube-api";
 import { UserSyncService } from "@/lib/user-sync";
 import { FirestoreService } from "@/lib/firestore";
@@ -18,11 +18,7 @@ export function VideoPlayer({ video, onClose }: VideoPlayerProps) {
   const [saved, setSaved] = useState(false);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    loadVideoDetails();
-  }, [video.id]);
-
-  const loadVideoDetails = async () => {
+  const loadVideoDetails = useCallback(async () => {
     setLoading(true);
     try {
       const details = await YouTubeAPIService.getVideoDetails(video.id);
@@ -32,7 +28,11 @@ export function VideoPlayer({ video, onClose }: VideoPlayerProps) {
     } finally {
       setLoading(false);
     }
-  };
+  }, [video.id]);
+
+  useEffect(() => {
+    loadVideoDetails();
+  }, [loadVideoDetails]);
 
   const handleSaveToLibrary = async () => {
     if (!user?.id || isSaving) return;

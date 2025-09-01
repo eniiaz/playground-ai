@@ -210,7 +210,7 @@ export function IdeaGeneratorModal({ isOpen, onClose, onCreate }: IdeaGeneratorM
               <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
                 <span className="text-2xl">🎯</span>
               </div>
-              <p>Click "Generate Idea" to get started!</p>
+              <p>Click &ldquo;Generate Idea&rdquo; to get started!</p>
             </div>
           )}
         </div>

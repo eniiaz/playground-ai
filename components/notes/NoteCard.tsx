@@ -46,7 +46,7 @@ export function NoteCard({ note, onUpdate, onDelete }: NoteCardProps) {
     }
     // Handle Firestore timestamp
     if (date && typeof date === 'object' && 'toDate' in date) {
-      return (date as any).toDate().toLocaleDateString();
+      return (date as { toDate: () => Date }).toDate().toLocaleDateString();
     }
     return new Date(date).toLocaleDateString();
   };

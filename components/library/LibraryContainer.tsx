@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useUser } from "@clerk/nextjs";
 import { FirestoreService, queryHelpers } from "@/lib/firestore";
 import { UserSyncService } from "@/lib/user-sync";
@@ -34,7 +34,7 @@ export function LibraryContainer() {
   const [showImageGenerator, setShowImageGenerator] = useState(false);
   const [generatedImage, setGeneratedImage] = useState<GeneratedImage | null>(null);
 
-  const fetchResources = async () => {
+  const fetchResources = useCallback(async () => {
     if (!user?.id) return;
     
     try {
@@ -48,11 +48,11 @@ export function LibraryContainer() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [user?.id]);
 
   useEffect(() => {
     fetchResources();
-  }, [user?.id]);
+  }, [fetchResources]);
 
   const handleCreateResource = async (resourceData: Omit<LibraryResource, "id" | "createdAt" | "updatedAt" | "userId">) => {
     if (!user?.id) return;

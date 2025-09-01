@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useUser } from "@clerk/nextjs";
 import { FirestoreService, queryHelpers } from "@/lib/firestore";
 import { UserSyncService } from "@/lib/user-sync";
@@ -24,7 +24,7 @@ export function NotesContainer() {
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
 
   // Fetch notes
-  const fetchNotes = async () => {
+  const fetchNotes = useCallback(async () => {
     if (!user?.id) return;
     
     try {
@@ -38,11 +38,11 @@ export function NotesContainer() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [user?.id]);
 
   useEffect(() => {
     fetchNotes();
-  }, [user?.id]);
+  }, [fetchNotes]);
 
   const handleCreateNote = async (noteData: { title: string; content: string; tags: string[] }) => {
     if (!user?.id) return;

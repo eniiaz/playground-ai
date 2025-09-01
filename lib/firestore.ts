@@ -13,6 +13,7 @@ import {
   limit,
   DocumentData,
   QueryConstraint,
+  WhereFilterOp,
 } from 'firebase/firestore';
 import { db } from './firebase';
 
@@ -97,7 +98,7 @@ export class FirestoreService {
 
 // Helper functions for common query patterns
 export const queryHelpers = {
-  where: (field: string, operator: any, value: any) => where(field, operator, value),
+  where: (field: string, operator: WhereFilterOp, value: unknown) => where(field, operator, value),
   orderBy: (field: string, direction: 'asc' | 'desc' = 'asc') => orderBy(field, direction),
   limit: (count: number) => limit(count),
 };

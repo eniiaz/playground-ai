@@ -92,7 +92,7 @@ export function VideosBrowsingContainer() {
         <div className="text-sm text-gray-600">
           {searchQuery ? (
             <>
-              Search results for "<strong>{searchQuery}</strong>" • {totalResults.toLocaleString()} videos found
+              Search results for &ldquo;<strong>{searchQuery}</strong>&rdquo; • {totalResults.toLocaleString()} videos found
             </>
           ) : (
             <>Trending videos • {totalResults} videos</>
