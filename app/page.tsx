@@ -17,7 +17,7 @@ export default async function Home() {
             <p className="text-xl text-gray-600 mb-8">
               Your personal digital workspace for notes, ideas, and knowledge management.
             </p>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mt-12">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 mt-12">
               <div className="text-center p-6">
                 <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
                   <span className="text-2xl">📝</span>
@@ -46,6 +46,13 @@ export default async function Home() {
                 <h3 className="text-lg font-semibold text-gray-800 mb-2">Video Browsing</h3>
                 <p className="text-gray-600">Search and explore YouTube content seamlessly</p>
               </div>
+              <div className="text-center p-6">
+                <div className="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <span className="text-2xl">🎨</span>
+                </div>
+                <h3 className="text-lg font-semibold text-gray-800 mb-2">Nano Editor</h3>
+                <p className="text-gray-600">Transform images with AI-powered editing using Google's Nano Banana</p>
+              </div>
             </div>
           </div>
         </div>
@@ -63,7 +70,7 @@ export default async function Home() {
         <MotivationalQuote />
 
         {/* Quick Actions Dashboard */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 mb-8">
           <Link href="/notes" className="group">
             <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200 hover:shadow-md transition-all duration-200 group-hover:scale-105">
               <div className="flex items-center mb-4">
@@ -128,6 +135,23 @@ export default async function Home() {
               </div>
               <div className="text-sm text-gray-500">
                 Search • Watch • Discover content
+              </div>
+            </div>
+          </Link>
+
+          <Link href="/nano" className="group">
+            <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200 hover:shadow-md transition-all duration-200 group-hover:scale-105">
+              <div className="flex items-center mb-4">
+                <div className="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center">
+                  <span className="text-xl">🎨</span>
+                </div>
+                <div className="ml-4">
+                  <h3 className="text-lg font-semibold text-gray-800">Nano Editor</h3>
+                  <p className="text-sm text-gray-600">AI image editing</p>
+                </div>
+              </div>
+              <div className="text-sm text-gray-500">
+                Upload • Edit • Transform with AI
               </div>
             </div>
           </Link>
