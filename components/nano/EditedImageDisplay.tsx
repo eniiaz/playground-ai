@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Image from 'next/image';
 
 interface EditedImage {
   url: string;
@@ -61,11 +62,13 @@ export default function EditedImageDisplay({ result }: EditedImageDisplayProps) 
         {result.images.map((image, index) => (
           <div key={index} className="group relative bg-white rounded-lg shadow-md overflow-hidden">
             <div className="aspect-square relative">
-              <img
+              <Image
                 src={image.url}
                 alt={`Edited result ${index + 1}`}
-                className="w-full h-full object-cover cursor-pointer hover:scale-105 transition-transform duration-200"
+                fill
+                className="object-cover cursor-pointer hover:scale-105 transition-transform duration-200"
                 onClick={() => openModal(image.url)}
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               />
               
               {/* Overlay with actions */}
@@ -112,12 +115,16 @@ export default function EditedImageDisplay({ result }: EditedImageDisplayProps) 
           onClick={closeModal}
         >
           <div className="relative max-w-4xl max-h-full">
-            <img
-              src={selectedImage}
-              alt="Full size edited image"
-              className="max-w-full max-h-full object-contain"
-              onClick={(e) => e.stopPropagation()}
-            />
+            <div className="relative max-w-full max-h-full" onClick={(e) => e.stopPropagation()}>
+              <Image
+                src={selectedImage}
+                alt="Full size edited image"
+                width={800}
+                height={600}
+                className="max-w-full max-h-full object-contain"
+                unoptimized
+              />
+            </div>
             <button
               onClick={closeModal}
               className="absolute top-4 right-4 bg-white text-gray-800 rounded-full w-8 h-8 flex items-center justify-center hover:bg-gray-100 transition-colors"

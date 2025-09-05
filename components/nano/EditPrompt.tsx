@@ -80,7 +80,7 @@ export default function EditPrompt({ onSubmit, isLoading, disabled }: EditPrompt
                     onClick={() => useExamplePrompt(example)}
                     className="text-left text-sm text-gray-700 hover:text-purple-600 hover:bg-white p-2 rounded border border-transparent hover:border-purple-200 transition-colors"
                   >
-                    "{example}"
+                    &quot;{example}&quot;
                   </button>
                 ))}
               </div>

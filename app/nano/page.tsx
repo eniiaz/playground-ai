@@ -7,7 +7,7 @@ export default function NanoPage() {
         <div className="text-center mb-8">
           <h1 className="text-4xl font-bold text-gray-900 mb-2">Nano Banana Image Editor</h1>
           <p className="text-lg text-gray-600">
-            Upload images and transform them with AI-powered editing using Google's state-of-the-art model
+            Upload images and transform them with AI-powered editing using Google&apos;s state-of-the-art model
           </p>
         </div>
         <NanoImageEditor />

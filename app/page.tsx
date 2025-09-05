@@ -51,7 +51,7 @@ export default async function Home() {
                   <span className="text-2xl">🎨</span>
                 </div>
                 <h3 className="text-lg font-semibold text-gray-800 mb-2">Nano Editor</h3>
-                <p className="text-gray-600">Transform images with AI-powered editing using Google's Nano Banana</p>
+                <p className="text-gray-600">Transform images with AI-powered editing using Google&apos;s Nano Banana</p>
               </div>
             </div>
           </div>
